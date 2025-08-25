@@ -3,9 +3,9 @@ from .models import Group, Students, Test, TestScore
 
 
 # STUDENT INLINE (Group ichida ko‘rsatish uchun)
-class StudentInline(admin.TabularInline):  # yoki admin.StackedInline
+class StudentInline(admin.TabularInline):
     model = Students
-    extra = 1   # yangi qo‘shish uchun bo‘sh qator
+    extra = 1
     fields = ("full_name", "student_phone_number", "parents_name", "parents_phone_number")
     show_change_link = True
 

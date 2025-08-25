@@ -2,7 +2,6 @@ import os
 import requests
 from dotenv import load_dotenv
 
-# .env ni yuklash
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")

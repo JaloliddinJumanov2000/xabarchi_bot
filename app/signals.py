@@ -1,9 +1,14 @@
+import os
+
 import requests
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import TestScore
 
-BOT_TOKEN = "7620557051:AAGbUsXfg-1AixVwhONo-hRgnJPF3bQF7LU"
+from dotenv import load_dotenv
+load_dotenv()
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 
