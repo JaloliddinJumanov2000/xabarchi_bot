@@ -49,13 +49,23 @@ from .models import Students
 
 @api_view(["POST"])
 def save_chat_id(request):
+    """Telegram bot orqali chat_id ni saqlash"""
     phone = request.data.get("phone")
     chat_id = request.data.get("chat_id")
 
+    if not phone or not chat_id:
+        return Response({"error": "Phone va chat_id majburiy"}, status=400)
     try:
         student = Students.objects.get(parents_phone_number=phone)
         student.parents_chat_id = chat_id
         student.save()
-        return Response({"status": "ok"})
+        
+        print(f"✅ {student.full_name} uchun chat_id saqlandi: {chat_id}")
+        return Response({
+            "status": "success", 
+            "message": "Chat ID muvaffaqiyatli saqlandi",
+            "student": student.full_name
+        })
     except Students.DoesNotExist:
-        return Response({"error": "Student topilmadi"}, status=404)
+        print(f"❌ Telefon raqami topilmadi: {phone}")
+        return Response({"error": "Bu telefon raqami bilan ro'yxatdan o'tgan o'quvchi topilmadi"}, status=404)

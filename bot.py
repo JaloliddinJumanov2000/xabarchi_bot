@@ -12,6 +12,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+if not BOT_TOKEN:
+    print("❌ BOT_TOKEN topilmadi! .env faylini tekshiring.")
+    exit(1)
 bot = Bot(token=BOT_TOKEN, parse_mode="HTML")
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
@@ -82,8 +86,10 @@ async def process_phone(message: types.Message, state: FSMContext):
         )
         
         if response.status_code == 200:
+            result = response.json()
             await message.answer(
                 "✅ <b>Muvaffaqiyatli ro'yxatdan o'tdingiz!</b>\n\n"
+                f"👤 O'quvchi: {result.get('student', 'Noma\'lum')}\n\n"
                 "🎓 Endi farzandingizning test natijalari "
                 "avtomatik ravishda sizga yuboriladi.\n\n"
                 "📊 Test natijalari haqida xabarlar olasiz."
@@ -116,6 +122,7 @@ async def handle_other_messages(message: types.Message):
 
 async def main():
     print("🤖 Bot ishga tushdi...")
+    print(f"🔗 Bot username: @{(await bot.get_me()).username}")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
