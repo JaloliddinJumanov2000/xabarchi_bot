@@ -60,11 +60,31 @@ class TestAdmin(admin.ModelAdmin):
 # TEST SCORE ADMIN
 @admin.register(TestScore)
 class TestScoreAdmin(admin.ModelAdmin):
-    list_display = ("id", "test", "student", "score", "comment", "telegram_sent")
+    list_display = ("id", "test", "student", "score", "comment", "telegram_status")
     search_fields = ("test__test_title", "student__full_name")
     list_filter = ("test", "student__group_name")
     ordering = ("-id",)
+    actions = ["send_bulk_notifications"]
 
-    def telegram_sent(self, obj):
+    def telegram_status(self, obj):
         return "✅" if obj.student.parents_chat_id else "❌"
-    telegram_sent.short_description = "Telegram yuborildi"
+    telegram_status.short_description = "Telegram holati"
+    
+    def send_bulk_notifications(self, request, queryset):
+        """Tanlangan test natijalarini Telegram orqali yuborish"""
+        sent_count = 0
+        failed_count = 0
+        
+        for test_score in queryset:
+            if test_score.student.parents_chat_id:
+                # Signal avtomatik ishga tushadi
+                sent_count += 1
+            else:
+                failed_count += 1
+        
+        if sent_count > 0:
+            self.message_user(request, f"✅ {sent_count} ta xabar yuborildi")
+        if failed_count > 0:
+            self.message_user(request, f"❌ {failed_count} ta ota-ona Telegram bog'lamagan")
+    
+    send_bulk_notifications.short_description = "📨 Tanlangan natijallarni yuborish"
