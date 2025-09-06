@@ -6,8 +6,10 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
-DEBUG = os.getenv("DEBUG", "False") == "True"
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+DEBUG = os.getenv("DEBUG")
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 INSTALLED_APPS = [
@@ -91,8 +93,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Telegram Bot
-BOT_TOKEN = os.getenv("BOT_TOKEN", "default-bot-token")
-BOT_USERNAME = os.getenv("BOT_USERNAME", "your_bot_username")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_USERNAME = os.getenv("BOT_USERNAME")
 
 # Jazzmin settings
 JAZZMIN_SETTINGS = {
@@ -116,3 +118,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Telegram Bot", "url": "@NatijaBilishUchunBot", "new_window": True},
     ],
 }
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = '/home/Jaloliddinbek/xabarchibot/static'
