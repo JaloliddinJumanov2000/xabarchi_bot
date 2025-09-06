@@ -18,6 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
+
     class Meta:
         model = Students
         fields = [

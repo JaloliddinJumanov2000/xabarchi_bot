@@ -8,7 +8,6 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 def send_message_sync(chat_id: int, text: str) -> None:
-    """Ota-onaga xabar yuboruvchi sync funksiya"""
     try:
         response = requests.post(
             BASE_URL,

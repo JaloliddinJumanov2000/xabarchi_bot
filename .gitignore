@@ -215,4 +215,6 @@ __marimo__/
 # migration file
 app/migrations
 .env
+.idea/*.xml
+.DS_Store
 
