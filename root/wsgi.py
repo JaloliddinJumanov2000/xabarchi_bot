@@ -1,8 +1,7 @@
 import os
 import sys
 
-# Django loyihangiz papkasini sys.path ga qo‘shish
-path = '/home/jaloliddin/xabarchi_bot'   # loyihangiz joylashgan to‘liq yo‘l
+path = '/home/jaloliddin/xabarchi_bot'
 if path not in sys.path:
     sys.path.append(path)
 
