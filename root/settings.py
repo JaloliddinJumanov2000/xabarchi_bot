@@ -2,6 +2,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+
+
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,3 +128,4 @@ JAZZMIN_SETTINGS = {
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/Jaloliddinbek/xabarchibot/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
