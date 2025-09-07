@@ -53,13 +53,15 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = "root.wsgi.application"
 
+
 DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("MYSQL_ENGINE", "django.db.backends.mysql"),
-        "NAME": os.getenv("MYSQL_DB"),
-        "USER": os.getenv("MYSQL_USER"),
-        "PASSWORD": os.getenv("MYSQL_PASSWORD"),
-        "HOST": os.getenv("MYSQL_HOST", "localhost"),
+    'default': {
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
+        'NAME': os.getenv('DB_NAME', 'otaona_db'),
+        'USER': os.getenv('DB_USER', 'otaona_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Jumanov2000'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
 
