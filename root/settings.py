@@ -93,7 +93,6 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files
-STATIC_URL = "static/"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -127,5 +126,4 @@ JAZZMIN_SETTINGS = {
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/Jaloliddinbek/xabarchibot/static'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
