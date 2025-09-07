@@ -1,18 +1,13 @@
-from pathlib import Path
 import os
+from pathlib import Path
 from dotenv import load_dotenv
-
-
-
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-DEBUG = os.getenv("DEBUG")
-
+SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
+DEBUG = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 INSTALLED_APPS = [
@@ -23,21 +18,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    # Local apps
     "app.apps.AppConfig",
-
-    # Third-party
     "rest_framework",
     "drf_yasg",
     "phonenumber_field",
 ]
-
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAdminUser",
-    ]
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -65,17 +50,15 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = "root.wsgi.application"
-
 
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("MYSQL_ENGINE"),
+        "ENGINE": os.getenv("MYSQL_ENGINE", "django.db.backends.mysql"),
         "NAME": os.getenv("MYSQL_DB"),
         "USER": os.getenv("MYSQL_USER"),
         "PASSWORD": os.getenv("MYSQL_PASSWORD"),
-        "HOST": os.getenv("MYSQL_HOST"),
+        "HOST": os.getenv("MYSQL_HOST", "localhost"),
     }
 }
 
@@ -92,10 +75,6 @@ TIME_ZONE = "Asia/Tashkent"
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-
-# Default primary key field type
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Telegram Bot
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -127,3 +106,5 @@ JAZZMIN_SETTINGS = {
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
