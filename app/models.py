@@ -28,36 +28,19 @@ class Students(models.Model):
 # TEST
 class Test(models.Model):
     test_title = models.CharField(max_length=100)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='test')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='tests')
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
-        return f"{self.test_title}({self.group.name})"
+        return f"{self.test_title} ({self.group.name})"
 
 
+# TEST SCORE
 class TestScore(models.Model):
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='scors')
-    student = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='test_score')
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='scores')
+    student = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='test_scores')
     score = models.DecimalField(max_digits=5, decimal_places=2)
     comment = models.TextField(blank=True, null=True)
 
-
     def __str__(self):
         return f"{self.student.full_name} | {self.test.test_title} | {self.score}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

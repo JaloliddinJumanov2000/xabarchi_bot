@@ -19,7 +19,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "app.apps.AppConfig",
+
+    # Local app
+    "app.apps.AppMainConfig",
+
+    # Third-party apps
     "rest_framework",
     "drf_yasg",
     "phonenumber_field",
@@ -51,17 +55,17 @@ TEMPLATES = [
         },
     },
 ]
+
 WSGI_APPLICATION = "root.wsgi.application"
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
-        'NAME': os.getenv('DB_NAME', 'otaona_db'),
-        'USER': os.getenv('DB_USER', 'otaona_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Jumanov2000'),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "xabarchi_bot",
+        "USER": "postgres",
+        "PASSWORD": "1",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -77,7 +81,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Tashkent"
 USE_I18N = True
 USE_TZ = True
-
 
 # Telegram Bot
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -106,8 +109,7 @@ JAZZMIN_SETTINGS = {
     ],
 }
 
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Group, Students, Test, TestScore
 
 
-# STUDENT INLINE (Group ichida ko‘rsatish uchun)
+# --- STUDENT INLINE (Group ichida ko‘rsatish uchun)
 class StudentInline(admin.TabularInline):
     model = Students
     extra = 1
@@ -10,20 +10,19 @@ class StudentInline(admin.TabularInline):
     show_change_link = True
 
 
-# GROUP ADMIN
+# --- GROUP ADMIN
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "student_count")  # ustunlar
-    search_fields = ("name",)                       # qidiruv
-    inlines = [StudentInline]                       # ichiga Students qo‘shish
+    list_display = ("id", "name", "student_count")
+    search_fields = ("name",)
+    inlines = [StudentInline]
 
     def student_count(self, obj):
         return obj.students.count()
     student_count.short_description = "O‘quvchilar soni"
 
 
-# STUDENT ADMIN
-
+# --- STUDENT ADMIN
 @admin.register(Students)
 class StudentsAdmin(admin.ModelAdmin):
     list_display = ("full_name", "group_name", "student_phone_number", "parents_name", "parents_phone_number")
@@ -39,18 +38,25 @@ class StudentsAdmin(admin.ModelAdmin):
     clear_all_students.short_description = "🗑 Barcha o‘quvchilarni o‘chirish"
 
 
+# --- TEST SCORE INLINE (Test ichida ball qo‘yish uchun)
+class TestScoreInline(admin.TabularInline):
+    model = TestScore
+    extra = 1
+    fields = ("student", "score", "comment")
+    show_change_link = True
 
 
-# TEST ADMIN
+# --- TEST ADMIN
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
     list_display = ("id", "test_title", "group", "created_at")
     search_fields = ("test_title", "group__name")
     list_filter = ("group", "created_at")
     ordering = ("-created_at",)
+    inlines = [TestScoreInline]  # ✅ Shu joy "ball qo‘yish" uchun muhim
 
 
-# TEST SCORE ADMIN
+# --- TEST SCORE ADMIN
 @admin.register(TestScore)
 class TestScoreAdmin(admin.ModelAdmin):
     list_display = ("id", "test", "student", "score", "comment")
