@@ -1,16 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
-schema_view = get_schema_view(
-   openapi.Info(
-      title="Xabarchi Bot",
-      default_version='v1',
-   ),
-   public=True,
-)
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 def redirect_to_admin(request):
     return redirect('admin:index')
@@ -18,7 +9,16 @@ def redirect_to_admin(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('app.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    # OpenAPI schema
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+
+    # Swagger UI
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
+    # ReDoc UI
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+    # Default redirect to admin
     path('', redirect_to_admin),
 ]

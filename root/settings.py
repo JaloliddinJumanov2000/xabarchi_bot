@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
     # Third-party apps
     "rest_framework",
-    "drf_yasg",
+    "drf_spectacular",
     "phonenumber_field",
 ]
 
@@ -113,3 +113,15 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# DRF settings with spectacular
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "O‘quvchilar Baholash Tizimi API",
+    "DESCRIPTION": "API hujjatlari",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}

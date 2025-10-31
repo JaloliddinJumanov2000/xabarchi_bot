@@ -16,5 +16,5 @@ router.register(r"scores", TestScoreViewSet, basename="score")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("save_chat_id/", save_chat_id, name="save_chat_id"),  # ✅ bitta "api" bo‘ladi
+    path("save_chat_id/", save_chat_id, name="save_chat_id"),
 ]

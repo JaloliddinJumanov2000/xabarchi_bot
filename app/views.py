@@ -12,6 +12,17 @@ from app.serializer import (
 )
 
 
+from drf_spectacular.utils import extend_schema, extend_schema_view
+
+@extend_schema_view(
+    list=extend_schema(summary="Barcha o‘quvchilar ro‘yxati"),
+    retrieve=extend_schema(summary="Bitta o‘quvchi ma'lumotlari"),
+    create=extend_schema(summary="Yangi o‘quvchi qo‘shish"),
+    update=extend_schema(summary="O‘quvchi ma'lumotini yangilash"),
+    partial_update=extend_schema(summary="O‘quvchi ma'lumotini qisman yangilash"),
+    destroy=extend_schema(summary="O‘quvchi o‘chirish"),
+)
+
 # STUDENTS
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
