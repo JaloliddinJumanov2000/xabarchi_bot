@@ -9,7 +9,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = ["127.0.0.1", "jaloliddin.pythonanywhere.com"]
+ALLOWED_HOSTS = ['155.133.26.98', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     "jazzmin",
