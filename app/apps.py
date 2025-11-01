@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class AppMainConfig(AppConfig):  # ⚠️ nomini o'zgartirdik
+class AppMainConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'app'
 
